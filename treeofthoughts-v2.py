@@ -62,8 +62,7 @@ class OpenAILanguageModel(AbstractLanguageModel):
         
         else:
             raise ValueError("Invalid strategy. Choose 'cot' or 'propose'.")
-        
-        return thoughts
+       
 
     def evaluate_states(self, states):
         if self.evaluation_strategy == 'value':
@@ -91,7 +90,6 @@ class OpenAILanguageModel(AbstractLanguageModel):
         elif self.evaluation_strategy == 'vote':
             states_text = '\n'.join([' '.join(state) for state in states])
             prompt = f"Given the following states of reasoning, vote for the best state:\n{states_text}\n\nVote:"
-            response = openai.Completion.create(
                 engine="text-davinci-003",  
                 prompt=prompt,
                 n=1,
@@ -147,7 +145,6 @@ class TreeofThoughts:
 
     def solve(self, x, k, T, b, vth):
         if self.search_algorithm == 'BFS':
-            return self.tot_bfs(x, k, T, b)
         elif self.search_algorithm == 'DFS':
             return self.tot_dfs(x, k, T, vth)
         else:
@@ -181,7 +178,6 @@ class TreeofThoughts:
 #choose search algorithm('bfs or 'dfs)
 search_algorithm = "BFS"
 strategy="cot"
-evaluation_strategy = "value"
 
 #create an instance of the tree of thoughts class
 tree_of_thoughts= TreeofThoughts(model, search_algorithm)
